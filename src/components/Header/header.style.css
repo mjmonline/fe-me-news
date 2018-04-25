@@ -1,0 +1,6 @@
+.page-header {
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

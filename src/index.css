@@ -1,5 +1,34 @@
+:root {
+  --color-blue: #002642;
+  --color-red: #f7567c;
+  --color-orange: #ffe2c3;
+  --color-green: #bae8a4;
+  --color-turquoise: #99e1d9;
+  --gutter: 20px;
+  --gutter-small: 10px;
+  --gutter-large: 30px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background: white;
+  color: var(--color-blue);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--color-blue);
 }

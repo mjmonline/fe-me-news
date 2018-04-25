@@ -1,0 +1,9 @@
+.page-footer {
+  grid-row-start: 3;
+  grid-row-end: 4;
+  padding: var(--gutter);
+  margin: 0 var(--gutter);
+  background: var(--color-red);
+  color: var(--color-blue);
+  font-size: 14px;
+}
