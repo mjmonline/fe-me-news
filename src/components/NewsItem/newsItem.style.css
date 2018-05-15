@@ -1,0 +1,11 @@
+.newsItem-heading {
+  margin: 0;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.3;
+  margin-bottom: var(--gutter-small);
+}
+
+.newsItem-meta-item {
+  padding-right: 5px;
+}
