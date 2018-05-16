@@ -1,0 +1,37 @@
+.refresh-button {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border: 0;
+  background: none;
+  color: var(--color-red);
+  cursor: pointer;
+}
+
+.spin {
+  animation-name: spin;
+  animation-duration: 0.85s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes spin {
+  25%,
+  50%,
+  75%,
+  100% {
+    transform-origin: center center;
+  }
+  25%,
+  30% {
+    transform: rotate(-35deg);
+  }
+  75% {
+    transform: rotate(390deg);
+  }
+  80% {
+    transform: rotate(395deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

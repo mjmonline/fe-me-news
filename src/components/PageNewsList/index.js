@@ -1,37 +1,63 @@
 import React, { Component } from "react";
-import { NewsItemList } from "../";
+import { NewsItemList, RefreshButton } from "../";
 import { api } from "../../utils";
 
-const isArraysEqual = (arr1, arr2) => arr1.toString() === arr2.toString();
+const isArraysEqual = (arr1 = [], arr2 = []) =>
+  arr1.toString() === arr2.toString();
 
 class PageNewsList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: undefined
+      ids: undefined,
+      refreshing: false
     };
+
+    this.refresh = this.refresh.bind(this);
+  }
+
+  getIds() {
+    api
+      .getItemsIds()
+      .then(ids => {
+        this.setState({ ids, refreshing: false });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
+  refresh() {
+    this.setState({ refreshing: true }, this.getIds);
   }
 
   componentDidMount() {
-    api.getItemsIds().then(data => {
-      this.setState({ data });
-    });
+    this.getIds();
   }
 
-  shouldComponetUpdate(nextProps, nextState) {
-    return !isArraysEqual(this.state.data, nextState.data);
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.refreshing !== nextState.refreshing) {
+      return true;
+    }
+
+    if (!isArraysEqual(this.state.ids, nextState.ids)) {
+      return true;
+    }
+
+    return false;
   }
 
   render() {
-    const { data } = this.state;
+    const { ids, refreshing } = this.state;
 
-    if (!data) {
+    if (!ids) {
       return <div>Loading…</div>;
     }
     return (
       <div>
-        <NewsItemList ids={this.state.data} />
+        <RefreshButton clickHandler={this.refresh} refreshing={refreshing} />
+        <NewsItemList ids={ids} />
       </div>
     );
   }

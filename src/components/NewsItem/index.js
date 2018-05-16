@@ -55,7 +55,8 @@ class NewsItem extends Component {
 }
 
 NewsItem.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+  // id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+  id: PropTypes.number.isRequired
 };
 
 export default NewsItem;
