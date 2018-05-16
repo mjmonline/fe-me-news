@@ -5,9 +5,7 @@ const first10 = arr => arr.slice(0, 10);
 const BASEURL = "https://hacker-news.firebaseio.com";
 
 const getItemsIds = () => {
-  return fetchJson(`${BASEURL}/v0/topstories.json`).then(ids => {
-    return first10(ids);
-  });
+  return fetchJson(`${BASEURL}/v0/topstories.json`).then(first10);
 };
 
 const getItem = id => {
