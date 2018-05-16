@@ -5,7 +5,6 @@ import {
   Header,
   Content,
   Footer,
-  NewsItemList,
   NewsItem,
   PageNewsList
 } from "./components";
