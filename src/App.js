@@ -5,7 +5,6 @@ import {
   Header,
   Content,
   Footer,
-  NewsItemList,
   NewsItem,
   PageNewsList
 } from "./components";
@@ -23,7 +22,9 @@ class App extends Component {
               <Route exact path="/" component={PageNewsList} />
               <Route
                 path="/item/:itemId"
-                render={({ match }) => <NewsItem id={match.params.itemId} />}
+                render={({ match }) => (
+                  <NewsItem id={parseInt(match.params.itemId, 10)} />
+                )}
               />
             </Switch>
           </Content>

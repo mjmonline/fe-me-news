@@ -1,41 +1,61 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { distanceInWordsToNow } from "date-fns";
 import { Link } from "react-router-dom";
 import { api } from "../../utils";
 import "./newsItem.style.css";
 
-const NewsItem = ({ id }) => {
-  const item = api.getItem(id);
-  const dateTime = new Date(item.time * 1000);
-  const relativeTime = distanceInWordsToNow(dateTime);
+class NewsItem extends Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div className="newsItem">
-      <a href={item.url}>
-        <h2 className="newsItem-heading">{item.title}</h2>
-      </a>
-      <div className="newsItem-meta">
-        <Link to={`/item/${item.id}`}>
-          <span className="newsItem-meta-item">{item.score} points</span>
-        </Link>
-        <span className="newsItem-meta-item">by {item.by}</span>
-        <Link to={`/item/${item.id}`}>
-          <span className="newsItem-meta-item">
-            <time dateTime={dateTime}>{relativeTime} ago</time>
-          </span>
-          <span className="newsItem-meta-item">
-            {item.descendants === 0
-              ? "discuss"
-              : item.descendants + " comments"}
-          </span>
-        </Link>
+    this.state = {
+      data: undefined
+    };
+  }
+
+  componentDidMount() {
+    api.getItem(this.props.id).then(data => {
+      this.setState({ data });
+    });
+  }
+
+  render() {
+    const { data } = this.state;
+    if (!data) {
+      return null;
+    }
+    const dateTime = new Date(data.time * 1000);
+    const relativeTime = distanceInWordsToNow(dateTime);
+
+    return (
+      <div className="newsItem">
+        <a href={data.url}>
+          <h2 className="newsItem-heading">{data.title}</h2>
+        </a>
+        <div className="newsItem-meta">
+          <Link to={`/item/${data.id}`}>
+            <span className="newsItem-meta-item">{data.score} points</span>
+          </Link>
+          <span className="newsItem-meta-item">by {data.by}</span>
+          <Link to={`/item/${data.id}`}>
+            <span className="newsItem-meta-item">
+              <time dateTime={dateTime}>{relativeTime} ago</time>
+            </span>
+            <span className="newsItem-meta-item">
+              {data.descendants === 0
+                ? "discuss"
+                : data.descendants + " comments"}
+            </span>
+          </Link>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 NewsItem.propTypes = {
+  // id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
   id: PropTypes.number.isRequired
 };
 

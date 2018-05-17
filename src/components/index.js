@@ -5,3 +5,4 @@ export { default as Footer } from "./Footer";
 export { default as NewsItemList } from "./NewsItemList";
 export { default as NewsItem } from "./NewsItem";
 export { default as PageNewsList } from "./PageNewsList";
+export { default as RefreshButton } from "./RefreshButton";
