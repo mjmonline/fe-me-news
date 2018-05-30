@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as actions from "../../actions";
 import PropTypes from "prop-types";
 import { distanceInWordsToNow } from "date-fns";
 import { Link } from "react-router-dom";
@@ -59,4 +61,15 @@ NewsItem.propTypes = {
   id: PropTypes.number.isRequired
 };
 
-export default NewsItem;
+// const mapDispatchToProps = {
+//   fetchItem
+// };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // fetchItem: id => dispatch(action.fetchItem(dispatch)(id))
+    fetchItem: actions.fetchItem(dispatch)
+  };
+};
+
+export default connect(null, mapDispatchToProps)(NewsItem);

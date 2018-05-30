@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import "./page.style.css";
 
 const Page = ({ children, isDarkTheme }) => (
-  <div className={`page ${isDarkTheme ? "page--dark" : ""}`}>{children}</div>
+  <div className={`${isDarkTheme ? "page page--dark" : "page"}`}>
+    {children}
+  </div>
 );
 
 Page.propTypes = {
