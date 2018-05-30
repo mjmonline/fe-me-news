@@ -11,10 +11,10 @@ const mainMenuItems = [
   { text: "Submit", url: "https://news.ycombinator.com/submit" }
 ];
 
-const Header = props => (
+const Header = ({ toggleTheme }) => (
   <header className="page-header">
     <Logo />
-    <button onClick={props.toggleTheme}>toggle theme</button>
+    <button onClick={toggleTheme}>toggle theme</button>
     <MainMenu menuItems={mainMenuItems} />
   </header>
 );
