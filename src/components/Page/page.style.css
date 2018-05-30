@@ -1,9 +1,27 @@
 .page {
+  --background-page: white;
+  --background-primary: var(--color-orange);
+  --background-secondary: var(--color-red);
+  --text-color: var(--color-blue);
+  --link-color: var(--color-blue-light);
+  --link-color-contrast: white;
+
   display: grid;
   min-height: 100%;
   grid-template-rows: 60px 1fr auto;
+  background: var(--background-page);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--link-color);
 }
 
 .page--dark {
-  background: var(--color-blue);
+  --background-page: var(--color-blue-dark);
+  --background-primary: var(--color-blue);
+  --background-secondary: var(--color-turquoise);
+  --text-color: white;
+  --link-color: var(--color-green);
+  --link-color-contrast: var(--color-blue);
 }

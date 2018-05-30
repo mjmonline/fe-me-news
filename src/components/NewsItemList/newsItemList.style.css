@@ -3,22 +3,28 @@
   padding: 0;
   list-style-type: none;
   counter-reset: item;
+  background: var(--background-primary);
 }
 
 .newsItemList-item {
   position: relative;
-  padding: var(--gutter) var(--gutter-large);
+  padding: var(--gutter) var(--gutter-large) var(--gutter)
+    calc(var(--gutter-large) + var(--gutter));
 }
 
 .newsItemList-item:nth-child(odd) {
   background: rgba(0, 0, 0, 0.05);
 }
 
+.page--dark .newsItemList-item:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
 .newsItemList-item::before {
   counter-increment: item;
   content: counter(item);
   position: absolute;
-  left: var(--gutter-small);
+  left: var(--gutter);
   top: calc(var(--gutter));
   font-size: 20px;
   line-height: 1.3;

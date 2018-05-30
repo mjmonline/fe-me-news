@@ -4,7 +4,7 @@
   height: 40px;
   border: 0;
   background: none;
-  color: var(--color-red);
+  color: var(--background-secondary);
   cursor: pointer;
   outline: none;
 }
