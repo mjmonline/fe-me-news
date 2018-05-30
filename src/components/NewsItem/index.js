@@ -8,46 +8,36 @@ import { api } from "../../utils";
 import "./newsItem.style.css";
 
 class NewsItem extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: undefined
-    };
-  }
-
   componentDidMount() {
-    api.getItem(this.props.id).then(data => {
-      this.setState({ data });
-    });
+    this.props.fetchItem(this.props.id);
   }
 
   render() {
-    const { data } = this.state;
-    if (!data) {
+    const { item } = this.props;
+    if (!item) {
       return null;
     }
-    const dateTime = new Date(data.time * 1000);
+    const dateTime = new Date(item.time * 1000);
     const relativeTime = distanceInWordsToNow(dateTime);
 
     return (
       <div className="newsItem">
-        <a href={data.url}>
-          <h2 className="newsItem-heading">{data.title}</h2>
+        <a href={item.url}>
+          <h2 className="newsItem-heading">{item.title}</h2>
         </a>
         <div className="newsItem-meta">
-          <Link to={`/item/${data.id}`}>
-            <span className="newsItem-meta-item">{data.score} points</span>
+          <Link to={`/item/${item.id}`}>
+            <span className="newsItem-meta-item">{item.score} points</span>
           </Link>
-          <span className="newsItem-meta-item">by {data.by}</span>
-          <Link to={`/item/${data.id}`}>
+          <span className="newsItem-meta-item">by {item.by}</span>
+          <Link to={`/item/${item.id}`}>
             <span className="newsItem-meta-item">
               <time dateTime={dateTime}>{relativeTime} ago</time>
             </span>
             <span className="newsItem-meta-item">
-              {data.descendants === 0
+              {item.descendants === 0
                 ? "discuss"
-                : data.descendants + " comments"}
+                : item.descendants + " comments"}
             </span>
           </Link>
         </div>
@@ -57,19 +47,15 @@ class NewsItem extends Component {
 }
 
 NewsItem.propTypes = {
-  // id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
   id: PropTypes.number.isRequired
 };
 
-// const mapDispatchToProps = {
-//   fetchItem
-// };
-
-const mapDispatchToProps = dispatch => {
-  return {
-    // fetchItem: id => dispatch(action.fetchItem(dispatch)(id))
-    fetchItem: actions.fetchItem(dispatch)
-  };
+const mapStateToProps = (state, ownProps) => {
+  return { item: (state.data.items[ownProps.id] || {}).item };
 };
 
-export default connect(null, mapDispatchToProps)(NewsItem);
+const mapDispatchToProps = {
+  fetchItem: actions.fetchItem
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsItem);
