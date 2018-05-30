@@ -19,6 +19,10 @@ class PageNewsList extends Component {
       return true;
     }
 
+    if (this.props.isLoading !== nextProps.isLoading) {
+      return true;
+    }
+
     return false;
   }
 

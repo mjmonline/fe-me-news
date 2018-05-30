@@ -6,8 +6,11 @@ const RefreshButton = ({ clickHandler, disable }) => {
   return (
     <button
       className="refresh-button"
-      onClick={clickHandler}
-      disabled={disable}
+      onClick={() => {
+        if (!disable) {
+          clickHandler();
+        }
+      }}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
