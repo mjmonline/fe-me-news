@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { toggleTheme } from "../../actions";
 import MainMenu from "../MainMenu";
 import Logo from "../Logo";
 import "./header.style.css";
@@ -12,8 +14,13 @@ const mainMenuItems = [
 const Header = props => (
   <header className="page-header">
     <Logo />
+    <button onClick={props.toggleTheme}>toggle theme</button>
     <MainMenu menuItems={mainMenuItems} />
   </header>
 );
 
-export default Header;
+const mapDispatchToProps = {
+  toggleTheme
+};
+
+export default connect(null, mapDispatchToProps)(Header);
