@@ -39,7 +39,7 @@ export const requestItemFail = (id, err) => ({
 });
 
 // FETCHES
-export const fetchItemsIds = () => {
+export const fetchItemIds = () => {
   return dispatch => {
     dispatch(requestItemsIdsStart());
     return api

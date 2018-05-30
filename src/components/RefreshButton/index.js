@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./refreshButton.style.css";
 
-const RefreshButton = ({ clickHandler, refreshing }) => {
+const RefreshButton = ({ clickHandler, disable }) => {
   return (
     <button
       className="refresh-button"
       onClick={clickHandler}
-      disabled={refreshing}
+      disabled={disable}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ const RefreshButton = ({ clickHandler, refreshing }) => {
 };
 
 RefreshButton.propTypes = {
-  refreshing: PropTypes.bool.isRequired,
+  disable: PropTypes.bool.isRequired,
   clickHandler: PropTypes.func.isRequired
 };
 

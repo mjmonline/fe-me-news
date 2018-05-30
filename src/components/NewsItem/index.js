@@ -4,7 +4,6 @@ import * as actions from "../../actions";
 import PropTypes from "prop-types";
 import { distanceInWordsToNow } from "date-fns";
 import { Link } from "react-router-dom";
-import { api } from "../../utils";
 import "./newsItem.style.css";
 
 class NewsItem extends Component {

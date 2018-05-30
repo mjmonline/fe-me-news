@@ -1,47 +1,21 @@
 import React, { Component } from "react";
 import { NewsItemList, RefreshButton } from "../";
-import { api } from "../../utils";
+
+import * as actions from "../../actions";
+import { connect } from "react-redux";
 
 const isArraysEqual = (arr1 = [], arr2 = []) =>
   arr1.toString() === arr2.toString();
 
+const firstN = (n, arr) => arr.slice(0, n);
+
 class PageNewsList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      ids: undefined,
-      refreshing: false
-    };
-
-    this.refresh = this.refresh.bind(this);
-  }
-
-  getIds() {
-    api
-      .getItemsIds()
-      .then(ids => {
-        this.setState({ ids, refreshing: false });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }
-
-  refresh() {
-    this.setState({ refreshing: true }, this.getIds);
-  }
-
   componentDidMount() {
-    this.getIds();
+    this.props.fetchItemIds();
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.refreshing !== nextState.refreshing) {
-      return true;
-    }
-
-    if (!isArraysEqual(this.state.ids, nextState.ids)) {
+    if (!isArraysEqual(this.props.ids, nextProps.ids)) {
       return true;
     }
 
@@ -49,18 +23,30 @@ class PageNewsList extends Component {
   }
 
   render() {
-    const { ids, refreshing } = this.state;
+    const { ids, fetchItemIds, isLoading } = this.props;
 
     if (!ids) {
       return <div>Loading…</div>;
     }
+
     return (
       <div>
-        <RefreshButton clickHandler={this.refresh} refreshing={refreshing} />
+        <RefreshButton clickHandler={fetchItemIds} disable={isLoading} />
         <NewsItemList ids={ids} />
       </div>
     );
   }
 }
 
-export default PageNewsList;
+const mapStateToProps = state => {
+  return {
+    ids: firstN(state.ui.itemsToShow, state.data.itemsIds.ids),
+    isLoading: state.data.itemsIds.isLoading
+  };
+};
+
+const mapDispatchToProps = {
+  fetchItemIds: actions.fetchItemIds
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageNewsList);
