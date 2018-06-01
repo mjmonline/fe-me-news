@@ -11,8 +11,7 @@
   outline: none;
 }
 
-/* TODO make refresh icon spin on click */
-/* .refresh-button.spin {
+.refresh-button.spin {
   animation-name: spin;
   animation-duration: 0.85s;
   animation-delay: 0s;
@@ -39,4 +38,4 @@
   100% {
     transform: rotate(360deg);
   }
-} */
+}
