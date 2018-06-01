@@ -1,7 +1,9 @@
 .refresh-button {
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0 var(--gutter-small);
   border: 0;
   background: none;
   color: var(--background-secondary);

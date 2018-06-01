@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { NewsItemList, RefreshButton } from "../";
+import { NewsItemList, RefreshButton, Dropdown } from "../";
+import "./pageNewsList.style.css";
 
 import * as actions from "../../actions";
 import { connect } from "react-redux";
@@ -23,11 +24,20 @@ class PageNewsList extends Component {
       return true;
     }
 
+    if (this.props.updateItemsToShow !== nextProps.updateItemsToShow) {
+      return true;
+    }
+
     return false;
   }
 
   render() {
-    const { ids, fetchItemIds, isLoading } = this.props;
+    const { ids, fetchItemIds, updateItemsToShow, isLoading } = this.props;
+    const options = [
+      { value: "10", label: "Show 10" },
+      { value: "20", label: "Show 20" },
+      { value: "30", label: "Show 30" }
+    ];
 
     if (!ids) {
       return <div>Loading…</div>;
@@ -35,7 +45,15 @@ class PageNewsList extends Component {
 
     return (
       <div>
-        <RefreshButton clickHandler={fetchItemIds} disable={isLoading} />
+        <div className="tools">
+          <RefreshButton clickHandler={fetchItemIds} disable={isLoading} />
+          <Dropdown
+            options={options}
+            changeHandler={e => {
+              updateItemsToShow(e.currentTarget.value);
+            }}
+          />
+        </div>
         <NewsItemList ids={ids} />
       </div>
     );
@@ -50,7 +68,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  fetchItemIds: actions.fetchItemIds
+  fetchItemIds: actions.fetchItemIds,
+  updateItemsToShow: actions.updateItemsToShow
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageNewsList);

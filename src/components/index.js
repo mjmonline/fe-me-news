@@ -6,6 +6,7 @@ export { default as NewsItemList } from "./NewsItemList";
 export { default as NewsItem } from "./NewsItem";
 export { default as PageNewsList } from "./PageNewsList";
 export { default as RefreshButton } from "./RefreshButton";
+export { default as Dropdown } from "./Dropdown";
 export { default as ThemeToggler } from "./ThemeToggler";
 export { default as MainMenu } from "./MainMenu";
 export { default as Logo } from "./Logo";
