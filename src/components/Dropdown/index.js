@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Dropdown = ({ options, changeHandler }) => {
+const Dropdown = ({ options, defaultValue, changeHandler }) => {
   return (
-    <select onChange={changeHandler}>
+    <select onChange={changeHandler} value={defaultValue}>
       {options.map((option, i) => (
         <option key={i} value={option.value}>
           {option.label}
@@ -15,6 +15,7 @@ const Dropdown = ({ options, changeHandler }) => {
 
 Dropdown.propTypes = {
   options: PropTypes.array.isRequired,
+  defaultValue: PropTypes.number.isRequired,
   changeHandler: PropTypes.func
 };
 

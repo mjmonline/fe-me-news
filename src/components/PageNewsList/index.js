@@ -24,19 +24,21 @@ class PageNewsList extends Component {
       return true;
     }
 
-    if (this.props.updateItemsToShow !== nextProps.updateItemsToShow) {
-      return true;
-    }
-
     return false;
   }
 
   render() {
-    const { ids, fetchItemIds, updateItemsToShow, isLoading } = this.props;
+    const {
+      ids,
+      fetchItemIds,
+      updateItemsToShow,
+      isLoading,
+      itemsToShow
+    } = this.props;
     const options = [
-      { value: "10", label: "Show 10" },
-      { value: "20", label: "Show 20" },
-      { value: "30", label: "Show 30" }
+      { value: 10, label: "Show 10" },
+      { value: 20, label: "Show 20" },
+      { value: 30, label: "Show 30" }
     ];
 
     if (!ids) {
@@ -49,8 +51,9 @@ class PageNewsList extends Component {
           <RefreshButton clickHandler={fetchItemIds} disable={isLoading} />
           <Dropdown
             options={options}
+            defaultValue={itemsToShow}
             changeHandler={e => {
-              updateItemsToShow(e.currentTarget.value);
+              updateItemsToShow(parseInt(e.currentTarget.value, 10));
             }}
           />
         </div>
@@ -63,7 +66,8 @@ class PageNewsList extends Component {
 const mapStateToProps = state => {
   return {
     ids: firstN(state.ui.itemsToShow, state.data.itemsIds.ids),
-    isLoading: state.data.itemsIds.isLoading
+    isLoading: state.data.itemsIds.isLoading,
+    itemsToShow: state.ui.itemsToShow
   };
 };
 
