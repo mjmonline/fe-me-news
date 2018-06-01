@@ -3,6 +3,4 @@
   margin: 0 calc(0px - var(--gutter-small));
   list-style-type: none;
   display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
 }

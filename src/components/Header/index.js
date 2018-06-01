@@ -1,8 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
-import * as actions from "../../actions";
-import MainMenu from "../MainMenu";
-import Logo from "../Logo";
+import { MainMenu, Logo, ThemeToggler } from "../";
 import "./header.style.css";
 
 const mainMenuItems = [
@@ -11,16 +8,16 @@ const mainMenuItems = [
   { text: "Submit", url: "https://news.ycombinator.com/submit" }
 ];
 
-const Header = ({ toggleTheme }) => (
+const Header = () => (
   <header className="page-header">
-    <Logo />
-    <button onClick={toggleTheme}>toggle theme</button>
-    <MainMenu menuItems={mainMenuItems} />
+    <div className="page-header__primary">
+      <Logo />
+    </div>
+    <div className="page-header__secondary">
+      <ThemeToggler />
+      <MainMenu menuItems={mainMenuItems} />
+    </div>
   </header>
 );
 
-const mapDispatchToProps = {
-  toggleTheme: actions.toggleTheme
-};
-
-export default connect(null, mapDispatchToProps)(Header);
+export default Header;
