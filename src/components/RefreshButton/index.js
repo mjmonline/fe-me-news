@@ -34,7 +34,7 @@ class RefreshButton extends PureComponent {
     const { disable, clickHandler } = this.props;
     return (
       <button
-        className={`refresh-button ${this.state.animate ? "spin" : ""}`}
+        className={`refresh-button ${this.state.animate ? "is-animating" : ""}`}
         onClick={() => {
           if (!disable) {
             this.triggerAnimation();
