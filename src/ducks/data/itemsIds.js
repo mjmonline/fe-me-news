@@ -1,6 +1,6 @@
+import PropTypes from "prop-types";
 import { api } from "../../utils";
 import { stringifyErr } from "../../utils";
-import PropTypes from "prop-types";
 
 const ns = "itemsIds";
 

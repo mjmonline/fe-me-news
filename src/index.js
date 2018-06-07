@@ -13,7 +13,8 @@ import * as ducks from "./ducks";
 // ROOT
 const rootReducer = combineReducers({
   data: dataReducer,
-  ...ducks.ui.reducer
+  ...ducks.ui.reducer,
+  ...ducks.data.reducer
 });
 
 // Stolen from https://github.com/zalmoxisus/redux-devtools-extension#usage
