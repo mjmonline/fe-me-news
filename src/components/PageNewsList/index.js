@@ -4,11 +4,7 @@ import "./pageNewsList.style.css";
 
 import * as ducks from "../../ducks";
 import { connect } from "react-redux";
-
-const isArraysEqual = (arr1 = [], arr2 = []) =>
-  arr1.toString() === arr2.toString();
-
-const firstN = (n, arr) => arr.slice(0, n);
+import { isArraysEqual, firstN } from "../../utils";
 
 class PageNewsList extends Component {
   componentDidMount() {
@@ -65,10 +61,9 @@ class PageNewsList extends Component {
 
 const mapStateToProps = state => {
   const n = ducks.ui.selectors.itemsToShow(state);
-
   return {
-    ids: firstN(n, state.data.itemsIds.ids),
-    isLoading: state.data.itemsIds.isLoading,
+    ids: firstN(n, ducks.data.selectors.itemsIds.ids(state)),
+    isLoading: ducks.data.selectors.itemsIds.isLoading(state),
     itemsToShow: ducks.ui.selectors.itemsToShow(state)
   };
 };

@@ -30,10 +30,12 @@ const requestItemStart = id => ({
   type: types.start,
   payload: id
 });
+
 const requestItemSuccess = itemObj => ({
   type: types.success,
   payload: itemObj
 });
+
 const requestItemFail = (id, err) => ({
   type: types.fail,
   payload: { id, err }

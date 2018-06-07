@@ -2,18 +2,19 @@
 export const mergeObjects = objects => Object.assign({}, ...objects);
 
 const augmentSelector = (rootSelector, selector) => {
-  return state => selector(rootSelector(state));
+  return (state, ...restArgs) => selector(rootSelector(state), ...restArgs);
 };
 
 const augmentSelectorsReducerFactory = (rootSelector, ns, selectorsObj) => (
   state,
   item
 ) => {
-  const selectorName = item === "root" ? `${ns}${item}` : item;
-  const selector = selectorsObj[selectorName];
   return {
     ...state,
-    [selectorName]: augmentSelector(rootSelector, selector)
+    [ns]: {
+      ...state[ns],
+      [item]: augmentSelector(rootSelector, selectorsObj[item])
+    }
   };
 };
 

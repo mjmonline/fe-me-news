@@ -4,7 +4,6 @@ import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import "./index.css";
 
-import { dataReducer } from "./reducers";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
@@ -12,7 +11,6 @@ import * as ducks from "./ducks";
 
 // ROOT
 const rootReducer = combineReducers({
-  data: dataReducer,
   ...ducks.ui.reducer,
   ...ducks.data.reducer
 });

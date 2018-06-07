@@ -3,7 +3,7 @@ import itemsIds from "./itemsIds";
 import items from "./items";
 import { mergeObjects, augmentSelectors } from "../../utils";
 
-export const ns = "data-duck";
+export const ns = "data";
 
 export const shape = mergeObjects([itemsIds.shape, items.shape]);
 export const defaultState = mergeObjects([
@@ -14,8 +14,8 @@ export const defaultState = mergeObjects([
 const root = state => state[ns];
 export const selectors = {
   root,
-  ...augmentSelectors(root, itemsIds.ns, itemsIds.actions),
-  ...augmentSelectors(root, items.ns, items.actions)
+  ...augmentSelectors(root, itemsIds.ns, itemsIds.selectors),
+  ...augmentSelectors(root, items.ns, items.selectors)
 };
 
 export const actions = mergeObjects([itemsIds.actions, items.actions]);
