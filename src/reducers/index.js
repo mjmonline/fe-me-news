@@ -23,7 +23,7 @@ const isDarkThemeReducer = (state = false, action) => {
   }
 };
 
-const uiReducer = combineReducers({
+export const uiReducer = combineReducers({
   itemsToShow: itemsToShowReducer,
   isDarkTheme: isDarkThemeReducer
 });
@@ -77,13 +77,7 @@ const itemsReducer = (state = {}, action) => {
   }
 };
 
-const dataReducer = combineReducers({
+export const dataReducer = combineReducers({
   itemsIds: itemIdsReducer,
   items: itemsReducer
-});
-
-// ROOT
-export const rootReducer = combineReducers({
-  ui: uiReducer,
-  data: dataReducer
 });
