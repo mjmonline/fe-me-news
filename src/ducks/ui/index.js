@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const ns = "ui-duck";
+export const ns = "ui";
 
 export const shape = {
   itemsToShow: PropTypes.number.isRequired,

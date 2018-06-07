@@ -3,6 +3,7 @@ import { NewsItemList, RefreshButton, Dropdown } from "../";
 import "./pageNewsList.style.css";
 
 import * as actions from "../../actions";
+import * as ducks from "../../ducks";
 import { connect } from "react-redux";
 
 const isArraysEqual = (arr1 = [], arr2 = []) =>
@@ -65,9 +66,9 @@ class PageNewsList extends Component {
 
 const mapStateToProps = state => {
   return {
-    ids: firstN(state.ui.itemsToShow, state.data.itemsIds.ids),
+    ids: firstN(ducks.ui.selectors.itemsToShow(state), state.data.itemsIds.ids),
     isLoading: state.data.itemsIds.isLoading,
-    itemsToShow: state.ui.itemsToShow
+    itemsToShow: ducks.ui.selectors.itemsToShow(state)
   };
 };
 
@@ -76,4 +77,7 @@ const mapDispatchToProps = {
   updateItemsToShow: actions.updateItemsToShow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageNewsList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PageNewsList);
