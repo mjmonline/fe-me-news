@@ -1,20 +1,20 @@
 .logo {
-    margin: 0;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
+  margin: 0;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 
 .logo__text {
-    font-size: 18px;
-    line-height: 1.2;
+  font-size: 18px;
+  line-height: 1.2;
 }
 
 .logo__icon {
-    display: block;
-    margin-left: var(--gutter-small);
-    height: 35px;
-    width: 35px;
-    fill: var(--color-red);
-    color: var(--color-blue);
+  display: block;
+  margin-left: var(--gutter-small);
+  height: 35px;
+  width: 35px;
+  fill: var(--background-secondary);
+  color: var(--link-color);
 }

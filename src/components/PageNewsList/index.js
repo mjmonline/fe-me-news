@@ -1,47 +1,26 @@
 import React, { Component } from "react";
-import { NewsItemList, RefreshButton } from "../";
-import { api } from "../../utils";
+import { NewsItemList, RefreshButton, Dropdown } from "../";
+import "./pageNewsList.style.css";
+
+import * as actions from "../../actions";
+import { connect } from "react-redux";
 
 const isArraysEqual = (arr1 = [], arr2 = []) =>
   arr1.toString() === arr2.toString();
 
+const firstN = (n, arr) => arr.slice(0, n);
+
 class PageNewsList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      ids: undefined,
-      refreshing: false
-    };
-
-    this.refresh = this.refresh.bind(this);
-  }
-
-  getIds() {
-    api
-      .getItemsIds()
-      .then(ids => {
-        this.setState({ ids, refreshing: false });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }
-
-  refresh() {
-    this.setState({ refreshing: true }, this.getIds);
-  }
-
   componentDidMount() {
-    this.getIds();
+    this.props.fetchItemIds();
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.refreshing !== nextState.refreshing) {
+    if (!isArraysEqual(this.props.ids, nextProps.ids)) {
       return true;
     }
 
-    if (!isArraysEqual(this.state.ids, nextState.ids)) {
+    if (this.props.isLoading !== nextProps.isLoading) {
       return true;
     }
 
@@ -49,18 +28,52 @@ class PageNewsList extends Component {
   }
 
   render() {
-    const { ids, refreshing } = this.state;
+    const {
+      ids,
+      fetchItemIds,
+      updateItemsToShow,
+      isLoading,
+      itemsToShow
+    } = this.props;
+    const options = [
+      { value: 10, label: "Show 10" },
+      { value: 20, label: "Show 20" },
+      { value: 30, label: "Show 30" }
+    ];
 
     if (!ids) {
       return <div>Loading…</div>;
     }
+
     return (
       <div>
-        <RefreshButton clickHandler={this.refresh} refreshing={refreshing} />
+        <div className="tools">
+          <RefreshButton clickHandler={fetchItemIds} disable={isLoading} />
+          <Dropdown
+            options={options}
+            defaultValue={itemsToShow}
+            changeHandler={e => {
+              updateItemsToShow(parseInt(e.currentTarget.value, 10));
+            }}
+          />
+        </div>
         <NewsItemList ids={ids} />
       </div>
     );
   }
 }
 
-export default PageNewsList;
+const mapStateToProps = state => {
+  return {
+    ids: firstN(state.ui.itemsToShow, state.data.itemsIds.ids),
+    isLoading: state.data.itemsIds.isLoading,
+    itemsToShow: state.ui.itemsToShow
+  };
+};
+
+const mapDispatchToProps = {
+  fetchItemIds: actions.fetchItemIds,
+  updateItemsToShow: actions.updateItemsToShow
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageNewsList);

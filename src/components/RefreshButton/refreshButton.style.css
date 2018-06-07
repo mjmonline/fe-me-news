@@ -1,16 +1,17 @@
 .refresh-button {
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0 var(--gutter-small);
   border: 0;
   background: none;
-  color: var(--color-red);
+  color: var(--background-secondary);
   cursor: pointer;
   outline: none;
 }
 
-/* TODO make refresh icon spin on click */
-/* .refresh-button.spin {
+.refresh-button.is-animating {
   animation-name: spin;
   animation-duration: 0.85s;
   animation-delay: 0s;
@@ -37,4 +38,4 @@
   100% {
     transform: rotate(360deg);
   }
-} */
+}

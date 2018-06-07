@@ -3,7 +3,15 @@
   grid-row-end: 4;
   padding: var(--gutter);
   margin: 0 var(--gutter);
-  background: var(--color-red);
-  color: var(--color-blue);
+  background: var(--background-secondary);
   font-size: 14px;
+}
+
+.page-footer a {
+  color: var(--link-color-contrast);
+  text-decoration: none;
+}
+
+.page-footer a:hover {
+  text-decoration: underline;
 }
