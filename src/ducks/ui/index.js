@@ -1,44 +1,44 @@
 import PropTypes from "prop-types";
 
-export const ns = "ui";
+const ns = "ui";
 
-export const shape = {
+const shape = {
   itemsToShow: PropTypes.number.isRequired,
   isDarkTheme: PropTypes.bool.isRequired
 };
 
-export const defaultState = {
+const defaultState = {
   itemsToShow: 10,
   isDarkTheme: false
 };
 
 const root = state => state[ns];
-export const selectors = {
+const selectors = {
   root,
   itemsToShow: state => root(state).itemsToShow,
   isDarkTheme: state => root(state).isDarkTheme
 };
 
-export const types = {
+const types = {
   updateItemsToShow: "UPDATE_ITEMS_TO_SHOW",
   toggleTheme: "TOGGLE_THEME"
 };
 
-export const updateItemsToShow = value => ({
+const updateItemsToShow = value => ({
   type: types.updateItemsToShow,
   payload: value
 });
 
-export const toggleTheme = () => ({
+const toggleTheme = () => ({
   type: types.toggleTheme
 });
 
-export const actions = {
+const actions = {
   updateItemsToShow,
   toggleTheme
 };
 
-export const rawReducer = (state = defaultState, action) => {
+const rawReducer = (state = defaultState, action) => {
   switch (action.type) {
     case types.updateItemsToShow:
       return { ...state, itemsToShow: action.payload };
@@ -50,7 +50,7 @@ export const rawReducer = (state = defaultState, action) => {
 };
 
 // its a good idea to namespace reducer as well
-export const reducer = {
+const reducer = {
   [ns]: rawReducer
 };
 

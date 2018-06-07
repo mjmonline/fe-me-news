@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { NewsItemList, RefreshButton, Dropdown } from "../";
 import "./pageNewsList.style.css";
 
-import * as actions from "../../actions";
 import * as ducks from "../../ducks";
 import { connect } from "react-redux";
 
@@ -13,7 +12,7 @@ const firstN = (n, arr) => arr.slice(0, n);
 
 class PageNewsList extends Component {
   componentDidMount() {
-    this.props.fetchItemIds();
+    this.props.fetchItemsIds();
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -31,7 +30,7 @@ class PageNewsList extends Component {
   render() {
     const {
       ids,
-      fetchItemIds,
+      fetchItemsIds,
       updateItemsToShow,
       isLoading,
       itemsToShow
@@ -49,7 +48,7 @@ class PageNewsList extends Component {
     return (
       <div>
         <div className="tools">
-          <RefreshButton clickHandler={fetchItemIds} disable={isLoading} />
+          <RefreshButton clickHandler={fetchItemsIds} disable={isLoading} />
           <Dropdown
             options={options}
             defaultValue={itemsToShow}
@@ -65,16 +64,18 @@ class PageNewsList extends Component {
 }
 
 const mapStateToProps = state => {
+  const n = ducks.ui.selectors.itemsToShow(state);
+
   return {
-    ids: firstN(ducks.ui.selectors.itemsToShow(state), state.data.itemsIds.ids),
+    ids: firstN(n, state.data.itemsIds.ids),
     isLoading: state.data.itemsIds.isLoading,
     itemsToShow: ducks.ui.selectors.itemsToShow(state)
   };
 };
 
 const mapDispatchToProps = {
-  fetchItemIds: actions.fetchItemIds,
-  updateItemsToShow: actions.updateItemsToShow
+  fetchItemsIds: ducks.data.actions.fetchItemsIds,
+  updateItemsToShow: ducks.ui.actions.updateItemsToShow
 };
 
 export default connect(
