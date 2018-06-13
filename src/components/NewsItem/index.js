@@ -51,12 +51,12 @@ NewsItem.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    item: ducks.data.selectors.items.item(state, ownProps.id)
+    item: ducks.data.items.selectors.item(state, ownProps.id)
   };
 };
 
 const mapDispatchToProps = {
-  fetchItem: ducks.data.actions.fetchItem
+  fetchItem: ducks.data.items.actions.fetchItem
 };
 
 export default connect(

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { NewsItemList, RefreshButton, Dropdown } from "../";
 import "./pageNewsList.style.css";
-
 import * as ducks from "../../ducks";
 import { connect } from "react-redux";
 import { isArraysEqual, firstN } from "../../utils";
@@ -62,14 +61,14 @@ class PageNewsList extends Component {
 const mapStateToProps = state => {
   const n = ducks.ui.selectors.itemsToShow(state);
   return {
-    ids: firstN(n, ducks.data.selectors.itemsIds.ids(state)),
-    isLoading: ducks.data.selectors.itemsIds.isLoading(state),
+    ids: firstN(n, ducks.data.itemsIds.selectors.ids(state)),
+    isLoading: ducks.data.itemsIds.selectors.isLoading(state),
     itemsToShow: ducks.ui.selectors.itemsToShow(state)
   };
 };
 
 const mapDispatchToProps = {
-  fetchItemsIds: ducks.data.actions.fetchItemsIds,
+  fetchItemsIds: ducks.data.itemsIds.actions.fetchItemsIds,
   updateItemsToShow: ducks.ui.actions.updateItemsToShow
 };
 

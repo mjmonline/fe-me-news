@@ -1,26 +1,11 @@
-// src/utils/ducks.js
-export const mergeObjects = objects => Object.assign({}, ...objects);
+export * from "./api";
 
-const augmentSelector = (rootSelector, selector) => {
-  return (state, ...restArgs) => selector(rootSelector(state), ...restArgs);
-};
-
-const augmentSelectorsReducerFactory = (rootSelector, ns, selectorsObj) => (
-  state,
-  item
-) => {
-  return {
-    ...state,
-    [ns]: {
-      ...state[ns],
-      [item]: augmentSelector(rootSelector, selectorsObj[item])
-    }
-  };
-};
-
-export const augmentSelectors = (rootSelector, ns, selectorsObj) => {
-  return Object.keys(selectorsObj).reduce(
-    augmentSelectorsReducerFactory(rootSelector, ns, selectorsObj),
+export const mapObj = (obj, fn) =>
+  Object.keys(obj).reduce(
+    (state, itemKey) => ({ ...state, [itemKey]: fn(obj[itemKey]) }),
     {}
   );
+
+export const augmentSelectorWith = parentSelector => selector => {
+  return (state, ...restArgs) => selector(parentSelector(state), ...restArgs);
 };
