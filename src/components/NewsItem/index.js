@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as ducks from "../../ducks";
-import PropTypes from "prop-types";
-import { distanceInWordsToNow } from "date-fns";
 import { Link } from "react-router-dom";
+import { distanceInWordsToNow } from "date-fns";
+import PropTypes from "prop-types";
+import * as ducks from "../../ducks";
 import "./newsItem.style.css";
 
 class NewsItem extends Component {

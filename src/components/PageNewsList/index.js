@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { NewsItemList, RefreshButton, Dropdown } from "../";
-import "./pageNewsList.style.css";
-import * as ducks from "../../ducks";
 import { connect } from "react-redux";
+import { NewsItemList, RefreshButton, Dropdown } from "../";
 import { isArraysEqual, firstN } from "../../utils";
+import * as ducks from "../../ducks";
+import "./pageNewsList.style.css";
 
 class PageNewsList extends Component {
   componentDidMount() {

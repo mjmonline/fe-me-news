@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
-import "./index.css";
-
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
 import * as ducks from "./ducks";
+import "./index.css";
 
 // ROOT
 const rootReducer = combineReducers({
