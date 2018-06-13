@@ -4,8 +4,9 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
 import * as ducks from "./ducks";
+import { logger, reduxFetch } from "./utils";
+import registerServiceWorker from "./registerServiceWorker";
 import "./index.css";
 
 // ROOT
@@ -23,7 +24,7 @@ const composeEnhancers =
     : compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk)
+  applyMiddleware(thunk, logger, reduxFetch)
   // other store enhancers if any
 );
 const store = createStore(rootReducer, enhancer);

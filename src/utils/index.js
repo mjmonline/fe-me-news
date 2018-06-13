@@ -1,5 +1,7 @@
 export * from "./api";
 export * from "./helpers";
+export * from "./logger";
+export * from "./redux-fetch";
 
 export const mapObj = (obj, fn) =>
   Object.keys(obj).reduce(
