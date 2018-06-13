@@ -1,21 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
-import "./index.css";
-
-import { rootReducer } from "./reducers";
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
+import * as ducks from "./ducks";
+import "./index.css";
 
-// const store = createStore(
-// rootReducer,
-// compose(
-//   applyMiddleware(thunk),
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-// )
-// );
+// ROOT
+const rootReducer = combineReducers({
+  ...ducks.ui.reducer,
+  ...ducks.data.reducer
+});
 
 // Stolen from https://github.com/zalmoxisus/redux-devtools-extension#usage
 const composeEnhancers =

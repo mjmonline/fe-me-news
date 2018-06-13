@@ -1,6 +1,6 @@
 import React from "react";
-import "./logo.style.css";
 import { Link } from "react-router-dom";
+import "./logo.style.css";
 
 const Logo = props => (
   <Link to="/" className="logo">

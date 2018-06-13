@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as actions from "../../actions";
+import * as ducks from "../../ducks";
 import "./themeToggler.style.css";
 
 const ThemeToggler = ({ toggleTheme, isDarkTheme }) => (
@@ -27,12 +27,15 @@ const ThemeToggler = ({ toggleTheme, isDarkTheme }) => (
 
 const mapStateToProps = state => {
   return {
-    isDarkTheme: state.ui.isDarkTheme
+    isDarkTheme: ducks.ui.selectors.isDarkTheme(state)
   };
 };
 
 const mapDispatchToProps = {
-  toggleTheme: actions.toggleTheme
+  toggleTheme: ducks.ui.actions.toggleTheme
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ThemeToggler);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ThemeToggler);

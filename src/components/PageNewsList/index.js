@@ -1,18 +1,13 @@
 import React, { Component } from "react";
-import { NewsItemList, RefreshButton, Dropdown } from "../";
-import "./pageNewsList.style.css";
-
-import * as actions from "../../actions";
 import { connect } from "react-redux";
-
-const isArraysEqual = (arr1 = [], arr2 = []) =>
-  arr1.toString() === arr2.toString();
-
-const firstN = (n, arr) => arr.slice(0, n);
+import { NewsItemList, RefreshButton, Dropdown } from "../";
+import { isArraysEqual, firstN } from "../../utils";
+import * as ducks from "../../ducks";
+import "./pageNewsList.style.css";
 
 class PageNewsList extends Component {
   componentDidMount() {
-    this.props.fetchItemIds();
+    this.props.fetchItemsIds();
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -30,7 +25,7 @@ class PageNewsList extends Component {
   render() {
     const {
       ids,
-      fetchItemIds,
+      fetchItemsIds,
       updateItemsToShow,
       isLoading,
       itemsToShow
@@ -48,7 +43,7 @@ class PageNewsList extends Component {
     return (
       <div>
         <div className="tools">
-          <RefreshButton clickHandler={fetchItemIds} disable={isLoading} />
+          <RefreshButton clickHandler={fetchItemsIds} disable={isLoading} />
           <Dropdown
             options={options}
             defaultValue={itemsToShow}
@@ -64,16 +59,20 @@ class PageNewsList extends Component {
 }
 
 const mapStateToProps = state => {
+  const n = ducks.ui.selectors.itemsToShow(state);
   return {
-    ids: firstN(state.ui.itemsToShow, state.data.itemsIds.ids),
-    isLoading: state.data.itemsIds.isLoading,
-    itemsToShow: state.ui.itemsToShow
+    ids: firstN(n, ducks.data.itemsIds.selectors.ids(state)),
+    isLoading: ducks.data.itemsIds.selectors.isLoading(state),
+    itemsToShow: ducks.ui.selectors.itemsToShow(state)
   };
 };
 
 const mapDispatchToProps = {
-  fetchItemIds: actions.fetchItemIds,
-  updateItemsToShow: actions.updateItemsToShow
+  fetchItemsIds: ducks.data.itemsIds.actions.fetchItemsIds,
+  updateItemsToShow: ducks.ui.actions.updateItemsToShow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageNewsList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PageNewsList);
