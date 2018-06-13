@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { types as fetchTypes } from "../../utils";
 
 const ns = "items";
 
@@ -34,12 +35,12 @@ const actions = {
 
 const rawReducer = (state = {}, action) => {
   switch (action.type) {
-    case `${types.fetchItem} / start`:
+    case fetchTypes.start(types.fetchItem):
       return {
         ...state,
         [action.params.id]: { item: {}, isLoading: true, error: null }
       };
-    case `${types.fetchItem} / success`:
+    case fetchTypes.success(types.fetchItem):
       return {
         ...state,
         [action.params.id]: {
@@ -48,7 +49,7 @@ const rawReducer = (state = {}, action) => {
           error: null
         }
       };
-    case `${types.fetchItem} / fail`:
+    case fetchTypes.fail(types.fetchItem):
       return {
         ...state,
         [action.params.id]: {

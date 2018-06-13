@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { types as fetchTypes } from "../../utils";
 
 const ns = "itemsIds";
 
@@ -37,11 +38,11 @@ const actions = {
 
 const rawReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case `${types.fetchItemIds} / start`:
+    case fetchTypes.start(types.fetchItemIds):
       return { ...state, isLoading: true };
-    case `${types.fetchItemIds} / success`:
+    case fetchTypes.success(types.fetchItemIds):
       return { ids: action.payload, isLoading: false, error: null };
-    case `${types.fetchItemIds} / fail`:
+    case fetchTypes.fail(types.fetchItemIds):
       return {
         ids: {},
         isLoading: false,
