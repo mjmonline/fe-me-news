@@ -8,10 +8,12 @@ export const reduxFetch = store => next => action => {
     next(action);
     return;
   }
+
   next({
     type: `${action.type} / start`,
     params: action.params
   });
+
   return fetchJson(BASE_URL + action.fetch.url, action.fetch.options)
     .then(res => {
       next({

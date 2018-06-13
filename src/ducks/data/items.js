@@ -1,6 +1,4 @@
 import PropTypes from "prop-types";
-import { api } from "../../utils";
-import { stringifyErr } from "../../utils";
 
 const ns = "items";
 
@@ -21,70 +19,42 @@ const selectors = {
 };
 
 const types = {
-  start: "REQUEST_ITEM_START",
-  success: "REQUEST_ITEM_SUCCESS",
-  fail: "REQUEST_ITEM_FAIL"
+  fetchItem: "REQUEST_ITEM"
 };
 
-const requestItemStart = id => ({
-  type: types.start,
-  payload: id
+const fetchItem = id => ({
+  type: types.fetchItem,
+  fetch: { url: `/v0/item/${id}.json` },
+  params: { id }
 });
-
-const requestItemSuccess = itemObj => ({
-  type: types.success,
-  payload: itemObj
-});
-
-const requestItemFail = (id, err) => ({
-  type: types.fail,
-  payload: { id, err }
-});
-
-const fetchItem = id => {
-  return dispatch => {
-    dispatch(requestItemStart(id));
-    return api
-      .getItem(id)
-      .then(item => {
-        dispatch(requestItemSuccess(item));
-      })
-      .catch(err => {
-        dispatch(requestItemFail(id, err));
-      });
-  };
-};
 
 const actions = {
-  requestItemStart,
-  requestItemSuccess,
-  requestItemFail,
   fetchItem
 };
 
-const rawReducer = (state = defaultState, action) => {
+const rawReducer = (state = {}, action) => {
   switch (action.type) {
-    case types.start:
+    case `${types.fetchItem} / start`:
       return {
         ...state,
-        [action.payload]: { item: {}, isLoading: true, error: null }
+        [action.params.id]: { item: {}, isLoading: true, error: null }
       };
-    case types.success:
+    case `${types.fetchItem} / success`:
       return {
         ...state,
-        [action.payload.id]: {
+        [action.params.id]: {
           item: action.payload,
           isLoading: false,
           error: null
         }
       };
-    case types.fail:
+    case `${types.fetchItem} / fail`:
       return {
         ...state,
-        [action.payload.id]: {
+        [action.params.id]: {
           item: {},
           isLoading: false,
-          error: stringifyErr(action.payload.err)
+          error: action.payload
         }
       };
     default:
