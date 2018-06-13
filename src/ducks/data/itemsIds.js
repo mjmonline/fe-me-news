@@ -1,6 +1,4 @@
 import PropTypes from "prop-types";
-import { api } from "../../utils";
-import { stringifyErr } from "../../utils";
 
 const ns = "itemsIds";
 
@@ -47,7 +45,7 @@ const rawReducer = (state = defaultState, action) => {
       return {
         ids: {},
         isLoading: false,
-        error: stringifyErr(action.payload)
+        error: action.payload
       };
     default:
       return state;
